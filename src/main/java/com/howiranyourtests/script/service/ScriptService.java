@@ -2,8 +2,8 @@ package com.howiranyourtests.script.service;
 
 import com.howiranyourtests.script.model.Script;
 import com.howiranyourtests.script.model.ScriptAction;
-import com.howiranyourtests.repository.ScriptActionRepository;
-import com.howiranyourtests.repository.ScriptRepository;
+import com.howiranyourtests.script.repository.ScriptActionRepository;
+import com.howiranyourtests.script.repository.ScriptRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
