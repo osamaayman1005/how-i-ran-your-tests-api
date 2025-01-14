@@ -1,6 +1,8 @@
 package com.howiranyourtests.execution.controller;
 
 import com.howiranyourtests.execution.service.ExecutionService;
+import com.howiranyourtests.global.ResponseObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +15,8 @@ public class ExecutionController {
     }
 
     @PostMapping("/api/execute/{scriptId}")
-    public String executeScript(@PathVariable Long scriptId) throws Exception {
-        return executionService.executeScript(scriptId);
+    public ResponseEntity<ResponseObject> executeScript(@PathVariable Long scriptId) throws Exception {
+        return ResponseEntity.ok(
+                new ResponseObject(executionService.executeScript(scriptId)));
     }
 }
