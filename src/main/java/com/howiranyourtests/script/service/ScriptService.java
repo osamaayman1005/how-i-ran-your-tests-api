@@ -31,9 +31,11 @@ public class ScriptService {
 
     public Script saveScript(Script script) {
         script = scriptRepository.save(script);
-
+        int order = 1;
         for (ScriptAction action : script.getActions()) {
-            action.setScript(script); // Link each action to the script
+            action.setScript(script);
+            action.setOrder(order++);
+            System.out.println(action);
             scriptActionRepository.save(action); // Save the action
         }
         return script;
