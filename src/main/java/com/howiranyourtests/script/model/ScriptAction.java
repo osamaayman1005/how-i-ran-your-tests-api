@@ -1,6 +1,8 @@
 package com.howiranyourtests.script.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.howiranyourtests.enums.Action;
+import com.howiranyourtests.enums.LocatorType;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +12,14 @@ public class ScriptAction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String action; // e.g., "click", "enter-text", "assert-text"
-    private String locatorType; // e.g., "id", "xpath", "className"
-    private String locator; // e.g., "btn-test", "//div/input"
-    private String value; // Optional, for actions like "enter-text" or "assert-text"
+    @Column(name = "action_order")
+    private Integer order;
+    @Enumerated(EnumType.STRING)
+    private Action action;
+    @Enumerated(EnumType.STRING)
+    private LocatorType locatorType;
+    private String locator;
+    private String value;
 
     @ManyToOne
     @JoinColumn(name = "script_id")
@@ -26,22 +32,6 @@ public class ScriptAction {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    public String getLocatorType() {
-        return locatorType;
-    }
-
-    public void setLocatorType(String locatorType) {
-        this.locatorType = locatorType;
     }
 
     public String getLocator() {
@@ -68,14 +58,40 @@ public class ScriptAction {
         this.script = script;
     }
 
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public Action getAction() {
+        return action;
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public LocatorType getLocatorType() {
+        return locatorType;
+    }
+
+    public void setLocatorType(LocatorType locatorType) {
+        this.locatorType = locatorType;
+    }
+
     @Override
     public String toString() {
         return "ScriptAction{" +
-                "value='" + value + '\'' +
-                ", locatorType='" + locatorType + '\'' +
+                "id=" + id +
+                ", order=" + order +
+                ", action=" + action +
+                ", locatorType=" + locatorType +
                 ", locator='" + locator + '\'' +
-                ", action='" + action + '\'' +
-                ", id=" + id +
+                ", value='" + value + '\'' +
+                ", script=" + script +
                 '}';
     }
 }
