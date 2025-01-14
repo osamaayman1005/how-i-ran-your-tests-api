@@ -1,9 +1,7 @@
 package com.howiranyourtests.script.controller;
 
 import com.howiranyourtests.script.model.Script;
-import com.howiranyourtests.execution.service.ExecutionService;
 import com.howiranyourtests.script.service.ScriptService;
-import org.openqa.selenium.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
