@@ -40,6 +40,6 @@ public class ActionResolver {
         }
 
         throw new Exception("Assertion failed at " + action.getId()
-                + " Expected: " + action.getValue() + " Actual: " + elementText);
+                + " Expected: '" + action.getValue() + "', Actual: '" + elementText + "'");
     }
 }

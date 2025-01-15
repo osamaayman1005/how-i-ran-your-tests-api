@@ -1,6 +1,6 @@
 package com.howiranyourtests.execution.service;
 
-import com.howiranyourtests.global.exception.GenericApiException;
+import com.howiranyourtests.global.exception.ExecutionException;
 import com.howiranyourtests.execution.util.ActionResolver;
 import com.howiranyourtests.execution.util.DriverManager;
 import com.howiranyourtests.execution.util.LocatorResolver;
@@ -9,7 +9,6 @@ import com.howiranyourtests.script.model.ScriptAction;
 import com.howiranyourtests.script.service.ScriptService;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -30,42 +29,41 @@ public class ExecutionService {
     }
 
 
-
     public String executeScript(Long scriptId) throws Exception {
         Script script = scriptService.getScriptById(scriptId).orElseThrow(Exception::new);
         WebDriver driver = driverManager.getDriver();
         long startTime = System.currentTimeMillis();  // Record the start time
 
         try {
-                driver.get(script.getUrl());  // Navigate to the script URL
-                
-                // Execute all actions associated with the script
-                
-                for (ScriptAction action : script.getActions().stream()
-                                                 .sorted(Comparator.comparingInt(ScriptAction::getOrder))
-                                                 .toList()) {
-                    executeAction(driver, action);
-                }
-            
-                long endTime = System.currentTimeMillis();  // Record the end time
-                return "Test passed in " + (endTime - startTime) + " ms";  // If all actions pass, return pass
-            } catch (Exception e) {
-                long endTime = System.currentTimeMillis();  // Record the end time in case of errors
-                throw new GenericApiException("fail (Execution time: " + (endTime - startTime) + " ms) "
-                        + "logs: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            driver.get(script.getUrl());  // Navigate to the script URL
 
-                          // Return fail with execution time
-            } finally {
+            // Execute all actions associated with the script
+
+            for (ScriptAction action : script.getActions().stream()
+                    .sorted(Comparator.comparingInt(ScriptAction::getOrder))
+                    .toList()) {
+                executeAction(driver, action);
+            }
+
+            long endTime = System.currentTimeMillis();  // Record the end time
+            return "Test passed in " + (endTime - startTime) + " ms";  // If all actions pass, return pass
+        } catch (Exception e) {
+            long endTime = System.currentTimeMillis();  // Record the end time in case of errors
+            throw new ExecutionException("fail (Execution time: " + (endTime - startTime) + " ms) "
+                    + "logs: " + e.getMessage(), driverManager.captureScreenshotAsBase64(driver));
+
+            // Return fail with execution time
+        } finally {
             driver.quit();  // Always close the browser after execution
         }
     }
 
     // Execute a single action
     public void executeAction(WebDriver driver, ScriptAction action) throws Exception {
-            WebElement element = locatorResolver.resolve(driver, action);
-            actionResolver.resolve(action, element);
+        WebElement element = locatorResolver.resolve(driver, action);
+        actionResolver.resolve(action, element);
 
-    
+
     }
 
 }
