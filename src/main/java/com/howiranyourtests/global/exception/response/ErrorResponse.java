@@ -1,4 +1,4 @@
-package com.howiranyourtests.global.exception;
+package com.howiranyourtests.global.exception.response;
 
 public class ErrorResponse {
     public String message;

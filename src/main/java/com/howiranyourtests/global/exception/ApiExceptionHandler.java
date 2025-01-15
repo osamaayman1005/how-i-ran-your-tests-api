@@ -1,5 +1,7 @@
 package com.howiranyourtests.global.exception;
 
+import com.howiranyourtests.global.exception.response.ErrorResponse;
+import com.howiranyourtests.global.exception.response.ExecutionErrorResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,5 +37,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse("An unexpected error occurred. trace: " + ex.getMessage() + " exception class: "+ ex.getClass().getName());
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
+    @ExceptionHandler(ExecutionException.class)
+    protected ResponseEntity<Object> handleExecutionException(ExecutionException ex, WebRequest request) {
+
+        ErrorResponse errorResponse = new ExecutionErrorResponse(ex.getMessage(), ex.getScreenshot());
+        return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
  
 }
