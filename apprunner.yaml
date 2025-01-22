@@ -1,7 +1,8 @@
 version: 1.0
-runtime: java21 # Specify the Java version (e.g., java21, java17, java11)
+runtime: java21
 build:
   commands:
-    - mvn clean package # Command to build your Spring Boot application
+    - mvn clean package
 run:
-  command: java -jar target/your-app.jar # Command to run your Spring Boot application
+  command: java -jar target/your-app.jar
+  port: 8080
