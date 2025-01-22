@@ -6,3 +6,7 @@ build:
 run:
   command: java -jar target/your-app.jar
   port: 8080
+  environment_variables:
+    DB_URL: jdbc:mysql://hiryt-db-hiryt.d.aivencloud.com:20429/how-i-ran-your-tests
+    DB_USERNAME: avnadmin
+    DB_PASSWORD: AVNS_hjx-BOcyvgP5nfCPsTn
