@@ -29,7 +29,7 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>23</java.version>
+		<java.version>21</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -78,6 +78,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.13.0</version> <!-- Ensure this matches your plugin version -->
+				<configuration>
+					<source>21</source> <!-- Set source compatibility to Java 21 -->
+					<target>21</target> <!-- Set target compatibility to Java 21 -->
+					<release>21</release> <!-- Explicitly set the release version -->
 				</configuration>
 			</plugin>
 		</plugins>
