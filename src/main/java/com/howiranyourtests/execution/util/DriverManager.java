@@ -24,9 +24,9 @@ public class DriverManager {
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--disable-gpu", "--headless", "--no-sandbox"); // Add any required options
+        options.addArguments("--disable-gpu", "--headless", "--no-sandbox"); // Add any required options
 
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait)); // Set implicit wait
 
         return driver;
