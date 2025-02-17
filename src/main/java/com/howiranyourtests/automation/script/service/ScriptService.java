@@ -13,20 +13,21 @@ import java.util.Optional;
 public class ScriptService {
 
     private final ScriptRepository scriptRepository;
-    private final ScriptActionRepository scriptActionRepository;
 
 
-    public ScriptService(ScriptRepository scriptRepository, ScriptActionRepository scriptActionRepository) {
+    public ScriptService(ScriptRepository scriptRepository) {
         this.scriptRepository = scriptRepository;
-        this.scriptActionRepository = scriptActionRepository;
     }
 
     public List<Script> getAllScripts() {
-        return scriptRepository.findAll();
+        return this.scriptRepository.findAll();
     }
 
     public Optional<Script> getScriptById(Long id) {
-        return scriptRepository.findById(id);
+        return this.scriptRepository.findById(id);
+    }
+    public List<Script> getAllScriptsForFeature(Long featureId){
+        return this.scriptRepository.findScriptsByFeatureId(featureId);
     }
 
     public Script saveScript(Script script) {
@@ -35,14 +36,14 @@ public class ScriptService {
     }
 
     public void deleteScript(Long id) {
-        scriptRepository.deleteById(id);
+        this.scriptRepository.deleteById(id);
     }
 
     public Optional<Script> updateScript(Long id, Script updatedScript) {
-        Optional<Script> existingScript = scriptRepository.findById(id);
+        Optional<Script> existingScript = this.scriptRepository.findById(id);
         if (existingScript.isPresent()) {
             updatedScript.setId(id);
-            return Optional.of(scriptRepository.save(updatedScript));
+            return Optional.of(this.scriptRepository.save(updatedScript));
         }
         return Optional.empty();
     }

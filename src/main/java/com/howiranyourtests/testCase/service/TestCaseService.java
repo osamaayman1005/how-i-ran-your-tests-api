@@ -74,4 +74,10 @@ public class TestCaseService {
                 .orElseThrow(() -> new RuntimeException("TestCase not found with id: " + id));
         testCaseRepository.delete(testCase);
     }
+    public void updateTestCaseStatus(Long testCaseId, Status status) {
+        TestCase testCase = testCaseRepository.findById(testCaseId)
+                .orElseThrow(() -> new RuntimeException("TestCase not found"));
+        testCase.setStatus(status);
+        testCaseRepository.save(testCase);
+    }
 }
