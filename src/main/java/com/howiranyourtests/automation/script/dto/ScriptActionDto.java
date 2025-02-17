@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor  
 public class ScriptActionDto {
     private Long id;
     private Integer order;
