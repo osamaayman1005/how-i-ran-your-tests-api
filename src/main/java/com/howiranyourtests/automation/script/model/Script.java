@@ -17,7 +17,7 @@ public class Script extends BaseEntity {
     private String title;
     private String url;
 
-    @OneToMany(mappedBy = "script", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "script", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ScriptAction> actions;
 
     @OneToOne

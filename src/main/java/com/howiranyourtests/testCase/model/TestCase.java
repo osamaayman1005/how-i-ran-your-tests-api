@@ -21,6 +21,6 @@ public class TestCase extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "feature_id")
     private Feature feature;
-    @OneToOne(mappedBy = "testCase")
+    @OneToOne(mappedBy = "testCase" , cascade = CascadeType.ALL, orphanRemoval = true)
     private Script script;
 }
