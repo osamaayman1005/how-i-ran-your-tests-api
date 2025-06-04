@@ -64,7 +64,9 @@ public class TestCaseService {
         testCase.setName(testCaseDto.getName());
         testCase.setDescription(testCaseDto.getDescription());
         testCase.setStatus(testCaseDto.getStatus());
-        testCase.setScript(testCaseDto.getScript().toEntity());
+        if(testCaseDto.getScript() != null) {
+            testCase.setScript(testCaseDto.getScript().toEntity());
+        }
         return new TestCaseDto(testCaseRepository.save(testCase));
     }
 
