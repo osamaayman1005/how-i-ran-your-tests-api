@@ -15,6 +15,7 @@ import lombok.ToString;
 public class Feature extends BaseEntity {
 
     private String name;
+    private String description;
     private String url;
     @ManyToOne
     @JoinColumn(name = "epic_id")

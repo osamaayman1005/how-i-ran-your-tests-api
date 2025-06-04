@@ -43,6 +43,7 @@ public class FeatureService {
 
         feature.setName(featureDetails.getName());
         feature.setUrl(featureDetails.getUrl());
+        feature.setDescription(featureDetails.getDescription());
 
         return featureRepository.save(feature);
     }
