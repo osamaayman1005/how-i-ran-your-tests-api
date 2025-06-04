@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +21,8 @@ public class TestCaseDto {
     private ScriptDto script;
     private Long featureId;
     private Long epicId;
+    private Date createdAt;
+    private Date updatedAt;
 
     public TestCaseDto(TestCase entity){
         this.id = entity.getId();
@@ -30,6 +34,8 @@ public class TestCaseDto {
         }
         this.featureId = entity.getFeature().getId();
         this.epicId = entity.getFeature().getEpic().getId();
+        this.createdAt = entity.getCreatedAt();
+        this.updatedAt = entity.getUpdatedAt();
     }
     public TestCase toEntity(Feature feature){
         TestCase entity = new TestCase();
@@ -41,7 +47,8 @@ public class TestCaseDto {
             entity.setScript(this.script.toEntity());
         }
         entity.setFeature(feature);
-
+        entity.setCreatedAt(this.createdAt);
+        entity.setUpdatedAt(this.updatedAt);
         return entity;
     }
 }
