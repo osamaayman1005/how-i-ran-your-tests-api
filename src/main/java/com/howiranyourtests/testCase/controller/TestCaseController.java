@@ -53,4 +53,8 @@ public class TestCaseController {
         testCaseService.deleteTestCase(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping("/generate")
+    public ResponseEntity<List<TestCaseDto>> generateTestCases(@RequestParam(required = true) Long featureId){
+        return new ResponseEntity<>(this.testCaseService.generateTestCases(featureId), HttpStatus.OK);
+    }
 }
