@@ -1,12 +1,13 @@
 package com.howiranyourtests.testCase.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.howiranyourtests.global.model.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,5 +21,8 @@ public class Feature extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "epic_id")
     private Epic epic;
+    @OneToMany(mappedBy = "feature", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<TestCase> testCases;
 
 }
